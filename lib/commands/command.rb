@@ -1,0 +1,2 @@
+module Dorothy::Command
+end

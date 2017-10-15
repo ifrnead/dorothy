@@ -1,0 +1,28 @@
+#!/usr/bin/env ruby
+require 'require_all'
+require_all "lib/**/*.rb"
+
+command = ARGV[0]
+params = ARGV[1..ARGV.size]
+
+case command
+  when "check"
+    puts "Executing CHECK command..."
+    command = Dorothy::Command::Check.new(params)
+  when "migrate"
+    puts "Executing MIGRATE command..."
+    command = Dorothy::Command::Migrate.new(params)
+  when "postcheck"
+    puts "Executing POSTCHECK command..."
+    command = Dorothy::Command::Postcheck.new(params)
+  else
+    puts "ERROR: Command #{command} not found!"
+    exit(0)
+end
+
+errors = command.valid_params?
+if errors.empty?
+  command.execute
+else
+  puts errors
+end
