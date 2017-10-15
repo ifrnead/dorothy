@@ -51,12 +51,17 @@ module Dorothy
       end
 
       def grade(student, phase, activity)
-        student.grade = 0 if not student.has_grade?
-        puts "Lançando nota: #{student.to_s} => #{student.grade}"
-        if student.has_id?
-          grade_by_id(student, phase, activity)
+        grade = check_grade(student, phase, activity)
+        unless grade
+          student.grade = 0 if not student.has_grade?
+          puts "Lançando nota: #{student.to_s} => #{student.grade}"
+          if student.has_id?
+            grade_by_id(student, phase, activity)
+          else
+            grade_by_fullname(student, phase, activity)
+          end
         else
-          grade_by_fullname(student, phase, activity)
+          puts "O aluno #{student.to_s} já tem uma nota lançada!"
         end
       end
 

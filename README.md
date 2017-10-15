@@ -33,11 +33,14 @@ Os comandos `migrate` e `postcheck` da Dorothy necessitam do arquivo de notas ex
 6. Opcionalmente, no campo 'Grupos vísiveis', selecione de qual grupo deseja exportar as notas
 7. No campo 'Casas decimais das notas exportadas' selecione 0 (zero)
 8. Na seção 'Itens de nota a serem inclusos', descelecione todos os itens clicando no link 'Selecionar todos/nenhum'
-9. Selecione *UMA ÚNICA ATIVIDADE* para exportar as notas (para migrar mais de uma nota, terá que executar o comando `migrate` mais de uma vez)
+9. Selecione **UMA ÚNICA ATIVIDADE** para exportar as notas (para migrar mais de uma nota, terá que executar o comando `migrate` mais de uma vez)
 10. Clique em 'Enviar'
-11. Salve o arquivo na pasta `data` do projeto
+11. Clique em 'Download'
+12. Salve o arquivo na pasta `data` do projeto
 
 ### Migrando notas para o SUAP
+
+**Aviso importante: Dorothy não irá lançar a nota do arquivo CSV para os alunos que já tiverem nota lançada para a atividade no SUAP.**
 
 O comando `migrate` é usado para migrar as notas do arquivo CSV exportado do Moodle para o SUAP. O comando `migrate` tem a seguinte sintaxe:
 
