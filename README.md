@@ -59,3 +59,15 @@ bin/grades postcheck <ID_DIARIO> <ARQUIVO_CSV>
 ```
 
 Uma vez executado, Dorothy irá abrir uma nova janela do Google Chrome e irá verificar as notas lançadas. Não interfira. Ao concluir, um relatório será apresentado no terminal de comandos.
+
+## Encontrou um problema?
+
+1. Acesse: https://github.com/ifrnead/dorothy/issues/new
+2. Descreva o problema em detalhes
+3. Clique em 'Submit new issue'
+
+## Quer sugerir melhorias?
+
+1. Acesse: https://github.com/ifrnead/dorothy
+2. Clique em 'Fork'
+3. Have fun! =)
