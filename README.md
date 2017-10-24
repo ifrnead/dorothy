@@ -1,11 +1,17 @@
 # Dorothy - Assistente Moodle-SUAP
 
+## Requisitos
+
+1. [Ruby 2.4+](https://www.ruby-lang.org)
+2. [Bundler](http://bundler.io/)
+3. [Google Chrome](http://chrome.google.com)
+4. [ChromeDriver](https://github.com/SeleniumHQ/selenium/wiki/ChromeDriver)
+
 ## Instalação
 
-1. Instale o [Ruby 2.4+](https://www.ruby-lang.org), o [Bundler](http://bundler.io/) e o Google Chrome
-2. Clone esse projeto: `git clone https://github.com/ifrnead/dorothy.git`
-3. Entre no projeto: `cd dorothy`
-4. Instale as dependências: `bundle install`
+1. Clone esse projeto: `git clone https://github.com/ifrnead/dorothy.git`
+2. Entre no projeto: `cd dorothy`
+3. Instale as dependências: `bundle install`
 
 ## Configuração
 
@@ -48,6 +54,10 @@ O comando `migrate` é usado para migrar as notas do arquivo CSV exportado do Mo
 bin/grades migrate <ID_DIARIO> <ARQUIVO_CSV> <ETAPA> <ATIVIDADE>
 ```
 
+- <ETAPA> pode ser 1, 2 ou final.
+- <ARQUIVO_CSV> é o path relativo para o arquivo CSV.
+- <ATIVIDADE> é a descrição da atividade no SUAP entre aspas.
+
 Uma vez executado, Dorothy irá abrir uma nova janela do Google Chrome e irá lançar as notas no SUAP. Não interfira. Ao concluir o lançamento das notas, essa janela será fechada automaticamente.
 
 ### Pós-checagem
@@ -55,8 +65,12 @@ Uma vez executado, Dorothy irá abrir uma nova janela do Google Chrome e irá la
 O comando de pós-checagem é usado para verificar se a nota de cada aluno presente no arquivo CSV foi de fato lançada no SUAP. O comando `postcheck` tem a seguinte sintaxe:
 
 ```
-bin/grades postcheck <ID_DIARIO> <ARQUIVO_CSV>
+bin/grades postcheck <ID_DIARIO> <ARQUIVO_CSV> <ETAPA> <ATIVIDADE>
 ```
+
+- <ETAPA> pode ser 1, 2 ou final.
+- <ARQUIVO_CSV> é o path relativo para o arquivo CSV.
+- <ATIVIDADE> é a descrição da atividade no SUAP entre aspas.
 
 Uma vez executado, Dorothy irá abrir uma nova janela do Google Chrome e irá verificar as notas lançadas. Não interfira. Ao concluir, um relatório será apresentado no terminal de comandos.
 
