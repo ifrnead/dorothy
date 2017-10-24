@@ -13,6 +13,8 @@
 2. Entre no projeto: `cd dorothy`
 3. Instale as dependências: `bundle install`
 
+PS: Se o bundle não estiver instalado execute `gem install bundle`
+
 ## Configuração
 
 1. Crie o arquivo `credentials.yml` na raiz do projeto
