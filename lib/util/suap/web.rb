@@ -87,10 +87,6 @@ module Dorothy
         input.value
       end
 
-      def submit_grades
-        @browser.find("//div[@class='action-bar submit-row']/input[@type='submit']").submit
-      end
-
       private
 
       def grade_by_id(student, phase, activity)

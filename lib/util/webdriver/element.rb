@@ -2,7 +2,6 @@ module Dorothy
   module WebDriver
     class Element
       include Enumerable
-      attr_accessor :element
 
       def initialize(element, driver)
         @element = element
@@ -35,6 +34,7 @@ module Dorothy
 
       def fill(value)
         @element.send_keys(value)
+        @element.send_keys(:tab)
       end
 
       def find(method = :xpath, element)
