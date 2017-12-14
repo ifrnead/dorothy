@@ -80,8 +80,11 @@ module Dorothy
             end
           end
         end
-        return input.text if input
-        false
+        
+        if input.text == ""
+          return false
+        end
+        input.text
       end
 
       def submit_grades
