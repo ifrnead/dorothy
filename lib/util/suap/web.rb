@@ -37,8 +37,8 @@ module Dorothy
           rows.each do |row|
             element = row.find("td[2]/dl/dd")
             student = Dorothy::Model::Student.new
-            student.fullname = element.text.split(" (").first
-            student.id = element.text.match(/[0-9]+/).to_s
+            student.fullname = element.value.split(" (").first
+            student.id = element.value.match(/[0-9]+/).to_s
             students << student
           end
         end
@@ -81,10 +81,10 @@ module Dorothy
           end
         end
         
-        if input.text == ""
+        if input.value == ""
           return false
         end
-        input.text
+        input.value
       end
 
       def submit_grades

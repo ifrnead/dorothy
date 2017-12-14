@@ -2,6 +2,7 @@ module Dorothy
   module WebDriver
     class Element
       include Enumerable
+      attr_accessor :element
 
       def initialize(element, driver)
         @element = element
@@ -18,6 +19,14 @@ module Dorothy
 
       def text
         @element.text
+      end
+
+      def attribute(attr_name)
+        @element.attribute(attr_name)
+      end
+
+      def value
+        @element.attribute('value')
       end
 
       def clear
