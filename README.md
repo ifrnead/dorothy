@@ -46,7 +46,7 @@ Os comandos `migrate` e `postcheck` da Dorothy necessitam do arquivo de notas ex
 
 ### Migrando notas para o SUAP
 
-**Aviso importante: Dorothy não irá lançar a nota do arquivo CSV para os alunos que já tiverem nota lançada para a atividade no SUAP.**
+**Aviso importante: Dorothy NÃO IRÁ LANÇAR a nota do arquivo CSV para os alunos que já tiverem nota (diferente de zero) lançada para a atividade no SUAP.**
 
 O comando `migrate` é usado para migrar as notas do arquivo CSV exportado do Moodle para o SUAP. O comando `migrate` tem a seguinte sintaxe:
 

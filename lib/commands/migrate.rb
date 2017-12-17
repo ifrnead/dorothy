@@ -22,6 +22,7 @@ module Dorothy::Command
       ava.students.each do |student|
         web.grade(student, @phase, @activity)
       end
+      web.submit_grades
     end
 
     def valid_params?

@@ -50,18 +50,31 @@ module Dorothy
         @browser.get "https://suap.ifrn.edu.br/edu/meu_diario/#{id}/#{phase}/?tab=notas"
       end
 
+      def submit_grades
+        @browser.find("//div[@class='action-bar submit-row']/input[@type='submit']").submit		
+      end
+
       def grade(student, phase, activity)
         grade = check_grade(student, phase, activity)
-        unless grade
-          student.grade = 0 if not student.has_grade?
-          puts "Lançando nota: #{student.to_s} => #{student.grade}"
-          if student.has_id?
-            grade_by_id(student, phase, activity)
-          else
-            grade_by_fullname(student, phase, activity)
-          end
+
+        if not student.has_grade?
+          student.grade = 0
+          puts "INFO: #{student.to_s} está sem nota no Moodle, lançando zero"
+        elsif student.has_grade? and not grade
+          puts "INFO: Lançando nota #{student.grade} para o aluno #{student.to_s}"
+        elsif grade == 0
+            puts "INFO: Sobrescrevendo a nota zero do aluno #{student.to_s} pela nota #{student.grade}"
+        elsif student.grade == grade
+          puts "INFO: A nota #{grade} já está lançada para o aluno #{student.to_s}"
         else
-          puts "O aluno #{student.to_s} já tem uma nota lançada!"
+            puts "WARNING: Já existe uma nota (#{grade}) lançada para o aluno #{student.to_s}, portanto a nota #{student.grade} não será lançada"
+            return
+        end
+
+        if student.has_id?
+          grade_by_id(student, phase, activity)
+        else
+          grade_by_fullname(student, phase, activity)
         end
       end
 
