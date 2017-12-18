@@ -66,6 +66,7 @@ module Dorothy
             puts "INFO: Sobrescrevendo a nota zero do aluno #{student.to_s} pela nota #{student.grade}"
         elsif student.grade == grade
           puts "INFO: A nota #{grade} já está lançada para o aluno #{student.to_s}"
+          return
         else
             puts "WARNING: Já existe uma nota (#{grade}) lançada para o aluno #{student.to_s}, portanto a nota #{student.grade} não será lançada"
             return
