@@ -54,10 +54,10 @@ O comando `migrate` é usado para migrar as notas do arquivo CSV exportado do Mo
 bin/grades migrate <ID_DIARIO> <ARQUIVO_CSV> <ETAPA> <ATIVIDADE>
 ```
 
-- <ID_DIARIO> é o número do diário no SUAP.
-- <ETAPA> pode ser 1, 2 ou final.
-- <ARQUIVO_CSV> é o path relativo para o arquivo CSV.
-- <ATIVIDADE> é a descrição da atividade no SUAP entre aspas.
+- `<ID_DIARIO>` é o número do diário no SUAP.
+- `<ETAPA>` pode ser 1, 2 ou final.
+- `<ARQUIVO_CSV>` é o path relativo para o arquivo CSV.
+- `<ATIVIDADE>` é a descrição da atividade no SUAP entre aspas.
 
 Uma vez executado, Dorothy irá abrir uma nova janela do Google Chrome e irá lançar as notas no SUAP. Não interfira. Ao concluir o lançamento das notas, essa janela será fechada automaticamente.
 
@@ -69,10 +69,10 @@ O comando de pós-checagem é usado para verificar se a nota de cada aluno prese
 bin/grades postcheck <ID_DIARIO> <ARQUIVO_CSV> <ETAPA> <ATIVIDADE>
 ```
 
-- <ID_DIARIO> é o número do diário no SUAP.
-- <ETAPA> pode ser 1, 2 ou final.
-- <ARQUIVO_CSV> é o path relativo para o arquivo CSV.
-- <ATIVIDADE> é a descrição da atividade no SUAP entre aspas.
+- `<ID_DIARIO>` é o número do diário no SUAP.
+- `<ETAPA>` pode ser 1, 2 ou final.
+- `<ARQUIVO_CSV>` é o path relativo para o arquivo CSV.
+- `<ATIVIDADE>` é a descrição da atividade no SUAP entre aspas.
 
 Uma vez executado, Dorothy irá abrir uma nova janela do Google Chrome e irá verificar as notas lançadas. Não interfira. Ao concluir, um relatório será apresentado no terminal de comandos.
 
@@ -84,9 +84,9 @@ O comando `reset` é usado quando se deseja apagar todas as notas de uma ativida
 bin/grades reset <ID_DIARIO> <ETAPA> <ATIVIDADE>
 ```
 
-- <ID_DIARIO> é o número do diário no SUAP.
-- <ETAPA> pode ser 1, 2 ou final.
-- <ATIVIDADE> é a descrição da atividade no SUAP entre aspas.
+- `<ID_DIARIO>` é o número do diário no SUAP.
+- `<ETAPA>` pode ser 1, 2 ou final.
+- `<ATIVIDADE>` é a descrição da atividade no SUAP entre aspas.
 
 ## Encontrou um problema?
 
