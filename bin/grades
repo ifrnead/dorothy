@@ -6,9 +6,9 @@ command = ARGV[0]
 params = ARGV[1..ARGV.size]
 
 case command
-  when "check"
-    puts "Executing CHECK command..."
-    command = Dorothy::Command::Check.new(params)
+  when "reset"
+    puts "Executing RESET command..."
+    command = Dorothy::Command::Reset.new(params)
   when "migrate"
     puts "Executing MIGRATE command..."
     command = Dorothy::Command::Migrate.new(params)

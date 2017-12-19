@@ -21,15 +21,6 @@ module Dorothy
         return JSON.parse(response.body)
       end
 
-      def get_students(id:)
-        diario = get_diario(id: id)
-        students = []
-        diario['participantes'].each do |student|
-          students << Student.create_from_json(student)
-        end
-        students
-      end
-
       private
 
       def headers(token)

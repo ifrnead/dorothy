@@ -50,13 +50,19 @@ module Dorothy
         @browser.get "https://suap.ifrn.edu.br/edu/meu_diario/#{id}/#{phase}/?tab=notas"
       end
 
-      def students(id)
-        api = Dorothy::SUAP::API.new(@credentials)
-        api.students(id)
+      def submit_grades
+        @browser.find("//div[@class='action-bar submit-row']/input[@type='submit']").submit
+        wait = Selenium::WebDriver::Wait.new(timeout: 60) # seconds
+        wait.until { @browser.find("//p[@id='feedback_message']") }
       end
 
-      def submit_grades
-        @browser.find("//div[@class='action-bar submit-row']/input[@type='submit']").submit		
+      def reset_grades(activity)
+        inputs = @browser.finds("//table[@class='info'][1]/tbody/tr/td/label[@data-hint='#{activity}']/../following-sibling::td[1]/input")
+        puts "INFO: Apagando notas..."
+        inputs.each do |input|
+          input.clear
+        end
+        puts "INFO: Concluído!"
       end
 
       def grade(student, phase, activity)
@@ -87,7 +93,7 @@ module Dorothy
       def check_grade(student, phase, activity)
         input = nil
         begin
-          input = @browser.find( "//a[@href='/edu/aluno/#{student.id}/'][1]/../../../../td[#{GRADE_COLUMN[phase]}]/table[@class='info'][1]/tbody/tr/td/label[@data-hint='#{activity}']/../following-sibling::td[1]/input")
+          input = @browser.find("//a[@href='/edu/aluno/#{student.id}/'][1]/../../../../td[#{GRADE_COLUMN[phase]}]/table[@class='info'][1]/tbody/tr/td/label[@data-hint='#{activity}']/../following-sibling::td[1]/input")
         rescue Selenium::WebDriver::Error::NoSuchElementError
           begin
             input = @browser.find("//dd[contains(text(), '#{student.fullname}')]/../../../td[#{GRADE_COLUMN[phase]}]/table[@class='info'][1]/tbody/tr/td/label[@data-hint='#{activity}']/../following-sibling::td[1]/input")

@@ -25,7 +25,7 @@ password: senha
 
 ## Execução
 
-Dorothy funciona através de comandos. Atualmente existem dois comandos: `migrate` e `postcheck`. O comando `migrate` é usado para lançar as notas de um arquivo CSV exportado do Moodle para o SUAP. O comando `postcheck` é usado para verificar quais alunos possuem nota no arquivo CSV mas não foram localizados no SUAP.
+Dorothy funciona através de comandos. Atualmente existem três comandos: `migrate`, `postcheck` e `reset`. O comando `migrate` é usado para lançar as notas de um arquivo CSV exportado do Moodle para o SUAP. O comando `postcheck` é usado para verificar quais alunos possuem nota no arquivo CSV mas essa nota não foi lançada. O comando `reset` apaga as notas de todos os alunos do diário.
 
 ### Exportando notas do Moodle
 
@@ -54,6 +54,7 @@ O comando `migrate` é usado para migrar as notas do arquivo CSV exportado do Mo
 bin/grades migrate <ID_DIARIO> <ARQUIVO_CSV> <ETAPA> <ATIVIDADE>
 ```
 
+- <ID_DIARIO> é o número do diário no SUAP.
 - <ETAPA> pode ser 1, 2 ou final.
 - <ARQUIVO_CSV> é o path relativo para o arquivo CSV.
 - <ATIVIDADE> é a descrição da atividade no SUAP entre aspas.
@@ -68,11 +69,24 @@ O comando de pós-checagem é usado para verificar se a nota de cada aluno prese
 bin/grades postcheck <ID_DIARIO> <ARQUIVO_CSV> <ETAPA> <ATIVIDADE>
 ```
 
+- <ID_DIARIO> é o número do diário no SUAP.
 - <ETAPA> pode ser 1, 2 ou final.
 - <ARQUIVO_CSV> é o path relativo para o arquivo CSV.
 - <ATIVIDADE> é a descrição da atividade no SUAP entre aspas.
 
 Uma vez executado, Dorothy irá abrir uma nova janela do Google Chrome e irá verificar as notas lançadas. Não interfira. Ao concluir, um relatório será apresentado no terminal de comandos.
+
+### Reset
+
+O comando `reset` é usado quando se deseja apagar todas as notas de uma atividade específica num diário. O comando `reset` tem a seguinte sintaxe:
+
+```
+bin/grades reset <ID_DIARIO> <ETAPA> <ATIVIDADE>
+```
+
+- <ID_DIARIO> é o número do diário no SUAP.
+- <ETAPA> pode ser 1, 2 ou final.
+- <ATIVIDADE> é a descrição da atividade no SUAP entre aspas.
 
 ## Encontrou um problema?
 
