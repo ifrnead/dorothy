@@ -50,6 +50,11 @@ module Dorothy
         @browser.get "https://suap.ifrn.edu.br/edu/meu_diario/#{id}/#{phase}/?tab=notas"
       end
 
+      def students(id)
+        api = Dorothy::SUAP::API.new(@credentials)
+        api.students(id)
+      end
+
       def submit_grades
         @browser.find("//div[@class='action-bar submit-row']/input[@type='submit']").submit		
       end
