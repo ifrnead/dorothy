@@ -30,6 +30,7 @@ module Dorothy
 
       def clear
         @element.clear
+        @element.send_keys(:tab)
       end
 
       def fill(value)

@@ -3,42 +3,32 @@ module Dorothy::Command
   class Migrate
     # Usage: bin/grades migrate <ID_DIARIO> <ARQUIVO_CSV> <ETAPA> <ATIVIDADE>
 
-    def initialize(params)
-      @id = params[0].to_i
-      @csv_file = params[1]
-      @phase = params[2].to_i
-      @activity = params[3]
+    def initialize
+      @id = Dorothy::Model::Settings.instance.id
+      @csv_file = Dorothy::Model::Settings.instance.csv
+      @stage = Dorothy::Model::Settings.instance.stage
+      @activity = Dorothy::Model::Settings.instance.activity
     end
 
     def execute
-      unless @valid
-        puts "ERROR: You need to validate params before execute"
-        return false
-      end
-
-      web = Dorothy::SUAP::Web.new('credentials.yml')
-      ava = Dorothy::AVA::CSVFile.new(@csv_file)
-      web.open_grades_page(@id, @phase)
-      ava.students.each do |student|
-        web.grade(student, @phase, @activity)
-      end
-      web.submit_grades
+      grades = Dorothy::Model::Grade.from_csv(@csv_file)
+      Dorothy::SUAP::Web.authenticate
+      grades_page = Dorothy::Model::GradesPage.new
+      grades_page.fill(grades)
+      grades_page.submit
     end
 
-    def valid_params?
+    def valid_settings?
       errors = Array.new
 
       if @id.nil?
-        errors << "ERROR: Please provide the ID!"
+        errors << "ERROR: Forneça o número do diário!"
       end
 
-      if @phase.nil?
-        errors << "ERROR: Please provide the Phase number!"
+      if @activity.nil?
+        errors << "ERROR: Forneça a descrição da atividade!"
       end
 
-      unless File.exist?(@csv_file)
-        errors << "ERROR: File #{@csv_file} not found!"
-      end
 
       if errors.empty?
         @valid = true

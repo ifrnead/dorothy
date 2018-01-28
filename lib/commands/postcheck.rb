@@ -3,37 +3,29 @@ module Dorothy::Command
   class Postcheck
     # Usage: bin/grades postcheck <ID_DIARIO> <ARQUIVO_CSV> <ETAPA> <ATIVIDADE>
 
-    def initialize(params)
-      @id = params[0].to_i
-      @csv_file = params[1]
-      @phase = params[2].to_i
-      @activity = params[3]
+    def initialize
+      @id = Dorothy::Model::Settings.instance.id
+      @csv_file = Dorothy::Model::Settings.instance.csv
+      @stage = Dorothy::Model::Settings.instance.stage
+      @activity = Dorothy::Model::Settings.instance.activity
     end
 
     def execute
-      unless @valid
-        puts "ERROR: You need to validate params before execute"
-        return false
-      end
-
-      web = Dorothy::SUAP::Web.new('credentials.yml')
-      ava = Dorothy::AVA::CSVFile.new(@csv_file)
-      web.open_grades_page(@id, @phase)
-
-      ava.students.each do |student|
-        puts "#{student} => #{student.grade}" if student.has_grade? and not web.check_grade(student, @phase, @activity)
-      end
+      grades = Dorothy::Model::Grade.from_csv(@csv_file)
+      Dorothy::SUAP::Web.authenticate
+      grades_page = Dorothy::Model::GradesPage.new
+      grades_page.check(grades)
     end
 
-    def valid_params?
+    def valid_settings?
       errors = Array.new
 
       if @id.nil?
-        errors << "ERROR: Please provide the ID!"
+        errors << "ERROR: Forneça o número do diário"
       end
 
       unless File.exist?(@csv_file)
-        errors << "ERROR: File #{@csv_file} not found!"
+        errors << "ERROR: Arquivo #{@csv_file} não encontrado!"
       end
 
       if errors.empty?

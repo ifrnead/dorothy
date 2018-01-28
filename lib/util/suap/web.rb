@@ -9,19 +9,15 @@ module Dorothy
 
       GRADE_COLUMN = { 1 => 3, 2 => 4, 5 => 6 }
 
-      def initialize(credentials)
-        @credentials = YAML.load_file(credentials)
-        @username = @credentials["username"]
-        @password = @credentials["password"]
-        @browser = Dorothy::WebDriver::Browser.new
-      end
+      def self.authenticate
+        browser = Dorothy::WebDriver::Browser.instance
+        settings = Dorothy::Model::Settings.instance
 
-      def authenticate
-        @browser.get "https://suap.ifrn.edu.br"
-        @browser.fill(id: 'id_username', value: @username)
-        @browser.fill(id: 'id_password', value: @password)
+        browser.get "https://suap.ifrn.edu.br"
+        browser.fill(id: 'id_username', value: settings.username)
+        browser.fill(id: 'id_password', value: settings.password)
 
-        if button = @browser.find("//*[@id=\"content\"]/div[1]/form/div[3]/input")
+        if button = browser.find("//*[@id=\"content\"]/div[1]/form/div[3]/input")
           button.click
         end
       end

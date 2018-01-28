@@ -3,28 +3,32 @@ module Dorothy::Command
   class Reset
     # Usage: bin/grades migrate <ID_DIARIO> <ETAPA> <ATIVIDADE>
 
-    def initialize(params)
-      @id = params[0].to_i
-      @phase = params[1].to_i
-      @activity = params[2]
+    def initialize
+      @id = Dorothy::Model::Settings.instance.id
+      @stage = Dorothy::Model::Settings.instance.stage
+      @activity = Dorothy::Model::Settings.instance.activity
     end
 
     def execute
-      web = Dorothy::SUAP::Web.new('credentials.yml')
-      web.open_grades_page(@id, @phase)
-      web.reset_grades(@activity)
-      web.submit_grades
+      Dorothy::SUAP::Web.authenticate
+      grades_page = Dorothy::Model::GradesPage.new
+      grades_page.reset_grades
+      grades_page.submit
     end
 
-    def valid_params?
+    def valid_settings?
       errors = Array.new
 
       if @id.nil?
-        errors << "ERROR: Please provide the ID!"
+        errors << "ERROR: Forneça o número do diário!"
       end
 
-      if @phase.nil?
-        errors << "ERROR: Please provide the Phase number!"
+      if @stage.nil?
+        errors << "ERROR: Forneça o número da etapa!"
+      end
+
+      if @activity.nil?
+        errors << "ERROR: Forneça a descrição da atividade!"
       end
 
       if errors.empty?

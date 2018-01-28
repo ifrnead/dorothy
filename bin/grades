@@ -2,25 +2,26 @@
 require 'require_all'
 require_all "lib/**/*.rb"
 
-command = ARGV[0]
-params = ARGV[1..ARGV.size]
+settings = Dorothy::Model::Settings.instance
+settings.load_options
+settings.load_credentials
 
-case command
+case ARGV[0]
   when "reset"
     puts "Executing RESET command..."
-    command = Dorothy::Command::Reset.new(params)
+    command = Dorothy::Command::Reset.new
   when "migrate"
     puts "Executing MIGRATE command..."
-    command = Dorothy::Command::Migrate.new(params)
+    command = Dorothy::Command::Migrate.new
   when "postcheck"
     puts "Executing POSTCHECK command..."
-    command = Dorothy::Command::Postcheck.new(params)
+    command = Dorothy::Command::Postcheck.new
   else
-    puts "ERROR: Command #{command} not found!"
+    puts "ERROR: Comando não encontrado"
     exit(0)
 end
 
-errors = command.valid_params?
+errors = command.valid_settings?
 if errors.empty?
   command.execute
 else

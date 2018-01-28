@@ -1,8 +1,10 @@
 require "selenium-webdriver"
+require 'singleton'
 
 module Dorothy
   module WebDriver
     class Browser
+      include Singleton
       attr_accessor :credentials, :username, :password
 
       def initialize

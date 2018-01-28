@@ -1,23 +1,12 @@
 module Dorothy::Model
 
   class Student
-    attr_accessor :id, :email, :fullname, :grade
+    attr_accessor :id, :email, :fullname
 
-    def self.create_from_csv(params)
-      student = Student.new
-      student.id = params[2]
-      student.email = params[3]
-      student.fullname = "#{params[0]} #{params[1]}"
-      student.grade = params[4]
-      student
-    end
-
-    def self.create_from_json(params)
-      student = Student.new
-      student.id = params["matricula"]
-      student.email = params["email"]
-      student.fullname = params["nome"]
-      student
+    def initialize(csv_row)
+      @id = csv_row[:id_number]
+      @fullname = "#{csv_row[:first_name]} #{csv_row[:surname]}"
+      @email = csv_row[:email_address]
     end
 
     def hash
@@ -38,10 +27,6 @@ module Dorothy::Model
 
     def to_s
       "#{@fullname} (#{@id})"
-    end
-
-    def has_grade?
-      (not @grade.nil?) and @grade != '-'
     end
 
     def has_id?
