@@ -46,17 +46,23 @@ Os comandos `migrate` e `postcheck` da Dorothy necessitam do arquivo de notas ex
 
 ### Migrando notas para o SUAP
 
-**Aviso importante: Dorothy NÃO IRÁ LANÇAR a nota do arquivo CSV para os alunos que já tiverem nota (diferente de zero) lançada para a atividade no SUAP.**
+**Atenção para as seguintes mudanças no lançamento das notas:**
+
+- Quando o aluno não tiver uma nota no arquivo CSV, será lançada a nota 0 (zero) para o aluno no SUAP
+- Quando o aluno tiver uma nota no arquivo CSV mas não tiver no SUAP, a nota do arquivo CSV será lançada no SUAP
+- Quando o aluno tiver a nota zero lançada no SUAP, essa nota será sobrescrita pela nota do arquivo CSV
+- Quando o aluno tiver a mesma nota no arquivo CSV e no SUAP, nenhuma nota será lançada
+- Caso o parâmetro `--force` seja usado, a nota do arquivo CSV irá sobrescrever as notas do SUAP. Sem o `--force`, caso o aluno já tenha uma nota no SUAP (diferente de zero), a nota do arquivo CSV não será lançada
 
 O comando `migrate` é usado para migrar as notas do arquivo CSV exportado do Moodle para o SUAP. O comando `migrate` tem a seguinte sintaxe:
 
 ```
-bin/grades migrate <ID_DIARIO> <ARQUIVO_CSV> <ETAPA> <ATIVIDADE>
+bin/grades migrate --id <ID_DIARIO> --csv <ARQUIVO_CSV> --stage <ETAPA> --activity <ATIVIDADE>
 ```
 
 - `<ID_DIARIO>` é o número do diário no SUAP.
-- `<ETAPA>` pode ser 1, 2 ou final.
-- `<ARQUIVO_CSV>` é o path relativo para o arquivo CSV.
+- `<ETAPA>` pode ser 1, 2 ou final. Default: `1`
+- `<ARQUIVO_CSV>` é o path relativo para o arquivo CSV. Default: `data/grades.csv`
 - `<ATIVIDADE>` é a descrição da atividade no SUAP entre aspas.
 
 Uma vez executado, Dorothy irá abrir uma nova janela do Google Chrome e irá lançar as notas no SUAP. Não interfira. Ao concluir o lançamento das notas, essa janela será fechada automaticamente.
@@ -66,12 +72,12 @@ Uma vez executado, Dorothy irá abrir uma nova janela do Google Chrome e irá la
 O comando de pós-checagem é usado para verificar se a nota de cada aluno presente no arquivo CSV foi de fato lançada no SUAP. O comando `postcheck` tem a seguinte sintaxe:
 
 ```
-bin/grades postcheck <ID_DIARIO> <ARQUIVO_CSV> <ETAPA> <ATIVIDADE>
+bin/grades postcheck --id <ID_DIARIO> --csv <ARQUIVO_CSV> --stage <ETAPA> --activity <ATIVIDADE>
 ```
 
 - `<ID_DIARIO>` é o número do diário no SUAP.
-- `<ETAPA>` pode ser 1, 2 ou final.
-- `<ARQUIVO_CSV>` é o path relativo para o arquivo CSV.
+- `<ETAPA>` pode ser 1, 2 ou final. Default: `1`
+- `<ARQUIVO_CSV>` é o path relativo para o arquivo CSV. Default: `data/grades.csv`
 - `<ATIVIDADE>` é a descrição da atividade no SUAP entre aspas.
 
 Uma vez executado, Dorothy irá abrir uma nova janela do Google Chrome e irá verificar as notas lançadas. Não interfira. Ao concluir, um relatório será apresentado no terminal de comandos.
@@ -81,11 +87,11 @@ Uma vez executado, Dorothy irá abrir uma nova janela do Google Chrome e irá ve
 O comando `reset` é usado quando se deseja apagar todas as notas de uma atividade específica num diário. O comando `reset` tem a seguinte sintaxe:
 
 ```
-bin/grades reset <ID_DIARIO> <ETAPA> <ATIVIDADE>
+bin/grades reset --id <ID_DIARIO> --stage <ETAPA> --activity <ATIVIDADE>
 ```
 
 - `<ID_DIARIO>` é o número do diário no SUAP.
-- `<ETAPA>` pode ser 1, 2 ou final.
+- `<ETAPA>` pode ser 1, 2 ou final. Default: `1`
 - `<ATIVIDADE>` é a descrição da atividade no SUAP entre aspas.
 
 ## Encontrou um problema?
