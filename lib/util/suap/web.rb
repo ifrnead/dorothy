@@ -16,18 +16,26 @@ module Dorothy
         browser.get "https://suap.ifrn.edu.br"
         browser.fill(id: 'id_username', value: settings.username)
         browser.fill(id: 'id_password', value: settings.password)
+        
 
-        if button = browser.find("//*[@id=\"content\"]/div[1]/form/div[3]/input")
+        #if button = browser.find("//*[@id=\"content\"]/div[1]/form/div[3]/input")
+        
+        if button = browser.find("//*[@id=\"login\"]/form/div[4]/input")
           button.click
+          puts "realizou login"
         end
       end
 
       def get_students_from_diario(id:)
+        puts "Self Authenticate"
         self.authenticate
+        puts "browser get"
         @browser.get "https://suap.ifrn.edu.br/edu/meu_diario/#{id}/1/?tab=notas"
+        puts "acessou diário"
         students = []
 
         tables = @browser.finds("//table[@id=\"table_notas\"]")
+        puts "buscou as notas"
         tables.each do |table|
           rows = table.finds("tbody/tr")
           rows.each do |row|
@@ -42,11 +50,13 @@ module Dorothy
       end
 
       def open_grades_page(id, phase)
+        puts "Abrindo a página de notas"
         self.authenticate
         @browser.get "https://suap.ifrn.edu.br/edu/meu_diario/#{id}/#{phase}/?tab=notas"
       end
 
       def submit_grades
+        puts "inserindo as notas"
         @browser.find("//div[@class='action-bar submit-row']/input[@type='submit']").submit
         wait = Selenium::WebDriver::Wait.new(timeout: 60) # seconds
         wait.until { @browser.find("//p[@id='feedback_message']") }

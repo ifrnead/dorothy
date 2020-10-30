@@ -1,0 +1,1 @@
+(function(){$(document).ready(function(){$("#captcha-row").hide();var username=$("#id_username");username.focus();username.blur(function(){$.ajax({url:"/comum/login_exige_captcha/"+$(this).val()+"/",success:function(data){if(data==='OK'){$("#captcha-row").show();}else{$("#captcha-row").hide();}}})});});}).call(this);
